@@ -1,0 +1,81 @@
+Switch commands
+```````````````
+enable
+configure terminal 
+hostname MainSW
+
+vlan 10
+name AdminIT
+exit
+interface range fastEthernet 0/2-4
+switchport mode access 
+switchport access vlan 10
+exit
+
+vlan 20
+name FinanceHR
+exit
+interface range fastEthernet 0/5-7
+switchport mode access 
+switchport access vlan 20
+exit
+
+vlan 30
+name ReciptionCS
+exit
+interface range fastEthernet 0/8-10
+switchport mode access 
+switchport access vlan 30
+exit
+
+interface fastEthernet 0/1
+switchport mode trunk 
+exit
+
+==========================================================
+
+Router commands
+```````````````
+enable
+configure terminal 
+hostname MainRouter
+
+interface gigabitEthernet 0/0/1
+description SW-02-Link
+ip address 192.168.2.1 255.255.255.128
+ip helper-address 192.168.2.2
+no shutdown
+exit
+
+interface gigabitEthernet 0/0/0
+description MainSW-Link
+no ip address 
+no shutdown
+exit
+
+interface gigabitEthernet 0/0/0.10
+encapsulation dot1Q 10
+description VLAN10-Link
+ip address 192.168.1.1 255.255.255.192
+no shutdown 
+ip helper-address 192.168.2.2
+exit
+
+interface gigabitEthernet 0/0/0.20
+encapsulation dot1Q 20
+description VLAN20-Link 
+ip address 192.168.1.65 255.255.255.192
+ip helper-address 192.168.2.2
+no shutdown
+exit
+
+interface gigabitEthernet 0/0/0.30
+encapsulation dot1Q 30
+description VLAN30-Link
+ip address 192.168.1.129 255.255.255.192
+ip helper-address 192.168.2.2
+no shutdown 
+exit
+
+
+
