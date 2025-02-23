@@ -1,0 +1,35 @@
+enable
+clock set 20:26:02 20 July 2024
+
+banner motd *
+Enter TEXT message.  End with the character '*'.
+######################################################## 
+  This is a Secure area.Please enter your Authentication. 
+######################################################## *
+
+enable secret hIman.cisco.lk
+
+line console 0
+password hIman.cisco.lk
+exec-timeout 15
+login
+exit
+
+username Admin secret AdMin@Ci$co
+ip domain-name cisco.lk
+crypto key generate rsa
+1024
+ip ssh version 2
+
+line vty 0
+transport input ssh
+login local
+exec-timeout 15
+exit
+
+service password-encryption 
+
+security passwords min-length 8
+
+login block 300 attempts 3 within 60
+
